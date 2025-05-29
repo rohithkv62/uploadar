@@ -1,0 +1,9 @@
+
+{
+  "name": "Advanced Media Platform",
+  "description": "A feature-rich media application with video, comments, subscriptions, and VoIP.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ]
+}

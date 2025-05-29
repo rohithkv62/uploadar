@@ -1,0 +1,556 @@
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    margin: 0;
+    padding: 0;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.app-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.light-theme-bg { /* Apply to app-container for full page background */
+    background-color: #f0f2f5; /* Lighter grey for overall background */
+    color: #333333;
+}
+.dark-theme-bg { /* Apply to app-container for full page background */
+    background-color: #000; /* Darker overall background */
+    color: #e0e0e0;
+}
+
+
+/* Light Theme Specifics */
+.light-theme { /* Applied to body by JS */
+    background-color: #ffffff; /* Default for elements if not overridden */
+    color: #333333;
+}
+.light-theme .card, 
+.light-theme .section, /* Apply to sections too */
+.light-theme input, 
+.light-theme textarea, 
+.light-theme select, 
+.light-theme .comment-item,
+.light-theme .navbar {
+    background-color: #ffffff; /* Cards and interactive elements white */
+    color: #333333;
+    border: 1px solid #ddd;
+}
+.light-theme .navbar {
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+.light-theme button {
+    background-color: #007bff;
+    color: white;
+    border: 1px solid #007bff;
+}
+.light-theme button.is-light, .light-theme .link-button { /* Specific override for light buttons */
+    background-color: #e9ecef;
+    color: #007bff;
+    border: 1px solid #ced4da;
+}
+.light-theme button.is-light:hover:not(:disabled), .light-theme .link-button:hover {
+    background-color: #dde1e5;
+}
+.light-theme button:hover:not(:disabled) {
+    background-color: #0056b3;
+}
+.light-theme .section-title {
+    border-bottom: 2px solid #007bff;
+    color: #007bff;
+}
+.light-theme a {
+    color: #007bff;
+}
+.light-theme .plan-card.active {
+    border: 2px solid #007bff;
+    box-shadow: 0 0 15px rgba(0,123,255,0.5);
+}
+.light-theme .navbar-item.is-active {
+    color: #0056b3;
+    font-weight: bold;
+}
+.light-theme .navbar-item, .light-theme .navbar-brand .logo {
+    color: #4a4a4a;
+}
+.light-theme .navbar-item:hover, .light-theme .navbar-brand .logo:hover {
+    background-color: #f5f5f5;
+    color: #007bff;
+}
+
+
+/* Dark Theme Specifics */
+.dark-theme { /* Applied to body by JS */
+    background-color: #121212; /* Default for elements */
+    color: #e0e0e0;
+}
+.dark-theme .card, 
+.dark-theme .section, /* Apply to sections too */
+.dark-theme input, 
+.dark-theme textarea, 
+.dark-theme select, 
+.dark-theme .comment-item,
+.dark-theme .navbar {
+    background-color: #1e1e1e; /* Cards and interactive elements dark grey */
+    color: #e0e0e0;
+    border: 1px solid #444;
+}
+.dark-theme .navbar {
+    box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+.dark-theme button {
+    background-color: #00acc1;
+    color: #121212; /* Ensure contrast for text on button */
+    border: 1px solid #00acc1;
+}
+.dark-theme button.is-light, .dark-theme .link-button { /* Specific override for light buttons */
+    background-color: #333;
+    color: #00acc1;
+    border: 1px solid #555;
+}
+.dark-theme button.is-light:hover:not(:disabled), .dark-theme .link-button:hover {
+    background-color: #444;
+}
+.dark-theme button:hover:not(:disabled) {
+    background-color: #00838f;
+}
+.dark-theme .section-title {
+    border-bottom: 2px solid #00acc1;
+    color: #00acc1;
+}
+.dark-theme a {
+    color: #00acc1;
+}
+.dark-theme .plan-card.active {
+    border: 2px solid #00acc1;
+    box-shadow: 0 0 15px rgba(0,172,193,0.5);
+}
+.dark-theme .navbar-item.is-active {
+    color: #61dafb;
+    font-weight: bold;
+}
+.dark-theme .navbar-item, .dark-theme .navbar-brand .logo {
+    color: #f0f0f0;
+}
+.dark-theme .navbar-item:hover, .dark-theme .navbar-brand .logo:hover {
+    background-color: #2a2a2a;
+    color: #61dafb;
+}
+
+
+.main-content {
+    flex-grow: 1;
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+
+.header { /* Old header, can be removed or repurposed */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ccc;
+}
+.dark-theme .header {
+    border-bottom: 1px solid #444;
+}
+
+.header h1 {
+    margin: 0;
+    font-size: 1.8em;
+}
+
+.controls { /* Old controls, can be removed or repurposed */
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.controls label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+}
+
+.section {
+    margin-bottom: 30px;
+    padding: 25px;
+    border-radius: 8px;
+    /* box-shadow inherited from theme-specific card style */
+}
+
+.section-title {
+    font-size: 1.6em; /* Slightly larger section titles */
+    margin-top: 0;
+    margin-bottom: 25px;
+    padding-bottom: 12px;
+}
+
+/* Navbar */
+.navbar {
+    padding: 0.5rem 1rem;
+    margin-bottom: 20px; /* Space below navbar */
+}
+.navbar-brand .logo {
+    font-weight: bold;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+.navbar-menu {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%; /* Ensure it tries to take full width */
+}
+.navbar-start, .navbar-end {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Gap between items */
+}
+.navbar-item {
+    padding: 0.5rem 0.75rem;
+    cursor: pointer;
+    text-decoration: none;
+    border-radius: 4px; /* Slight rounding for hover effect */
+}
+.navbar-item .button {
+    font-size: 0.9rem;
+}
+.buttons .button {
+    margin-left: 0.5rem;
+}
+.theme-toggle-label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+    font-size: 0.9em;
+}
+
+
+/* Auth Pages (Login/Signup) */
+.auth-page {
+    max-width: 450px;
+    margin: 40px auto;
+    padding: 30px;
+}
+.auth-page .form-group {
+    margin-bottom: 20px;
+}
+.auth-page label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+.auth-page input[type="text"],
+.auth-page input[type="email"],
+.auth-page input[type="password"] {
+    width: calc(100% - 22px); /* Account for padding and border */
+    padding: 12px 10px;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+.auth-page button[type="submit"] {
+    width: 100%;
+    padding: 12px;
+    font-size: 1.1rem;
+    margin-top: 10px; /* Space before main action button */
+}
+.auth-page p {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 0.95em;
+}
+.link-button {
+    background: none;
+    border: none;
+    padding: 0;
+    font: inherit;
+    cursor: pointer;
+    text-decoration: underline;
+}
+.light-theme .link-button {
+    color: #007bff;
+}
+.dark-theme .link-button {
+    color: #00acc1;
+}
+
+
+/* Video Player */
+.video-player-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.video-player-container video {
+    width: 100%;
+    max-width: 800px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    background-color: #000; 
+    border: 1px solid #444; 
+}
+.quality-selector {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.quality-selector label {
+    margin-right: 5px;
+}
+
+/* Subscription Plans */
+.plans-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Adjusted minmax */
+    gap: 25px;
+}
+.plan-card {
+    border-radius: 8px;
+    padding: 25px;
+    text-align: center;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+.plan-card:hover {
+    transform: translateY(-5px);
+}
+.light-theme .plan-card:hover {
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+.dark-theme .plan-card:hover {
+    box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+}
+
+.plan-card h3 {
+    margin-top: 0;
+    font-size: 1.4em;
+}
+.plan-card ul {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+}
+.plan-card ul li {
+    margin-bottom: 10px;
+    font-size: 1em;
+}
+.plan-price {
+    font-size: 2em; /* Larger price */
+    font-weight: bold;
+    margin: 20px 0;
+}
+
+/* Comment Section */
+.comment-section .form-group {
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+}
+.comment-section .form-group label {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+.comment-section textarea {
+    width: calc(100% - 22px); 
+    min-height: 80px;
+    padding: 10px;
+    border-radius: 4px;
+    resize: vertical;
+}
+.comment-item {
+    padding: 15px;
+    border-radius: 4px;
+    margin-bottom: 15px;
+}
+
+.comment-meta {
+    font-size: 0.9em;
+    /* color set by theme */
+    margin-bottom: 5px;
+}
+.dark-theme .comment-meta {
+    color: #aaa;
+}
+.light-theme .comment-meta {
+    color: #555;
+}
+.comment-actions button, .comment-actions select {
+    margin-right: 8px;
+    padding: 6px 12px; 
+    font-size: 0.9em;
+}
+.comment-actions {
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+}
+.translated-text {
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 4px;
+    font-style: italic;
+}
+.light-theme .translated-text {
+    background-color: #e9f5ff;
+    border-left: 3px solid #007bff;
+}
+.dark-theme .translated-text {
+    background-color: #2a3b47;
+    border-left: 3px solid #00acc1;
+}
+
+
+/* VoIP Section */
+.voip-section { /* Ensure consistent naming */
+    /* styles from .section apply */
+}
+.voip-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px; 
+}
+.voip-controls button {
+    margin-right: 0; 
+}
+.video-streams {
+    display: flex;
+    gap: 20px;
+    margin-top: 20px;
+    flex-wrap: wrap; 
+}
+.video-streams > div {
+    flex: 1;
+    min-width: 280px; 
+}
+.video-streams video {
+    width: 100%; 
+    height: auto; 
+    max-height: 225px; 
+    border-radius: 4px;
+    background-color: #222; 
+    border: 1px solid #555;
+}
+
+/* General UI Elements */
+button {
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s, opacity 0.2s, border-color 0.2s;
+    /* border is set by theme */
+    font-weight: 500; 
+}
+button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+input[type="text"], input[type="email"], input[type="password"],
+input[type="checkbox"], select, textarea {
+    padding: 10px; 
+    border-radius: 4px;
+    /* border, background, color set by theme */
+}
+input[type="checkbox"] {
+    margin-right: 5px; 
+    height: 1em; 
+    width: 1em;
+    vertical-align: middle; /* Better alignment with label text */
+}
+.error-message {
+    font-size: 0.9em;
+    margin-top: 5px;
+}
+.light-theme .error-message {
+    color: #dc3545;
+}
+.dark-theme .error-message {
+    color: #f87171; 
+}
+
+.loading-message {
+    font-style: italic;
+    padding: 5px 0;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 25px 20px; /* Increased padding */
+    margin-top: 40px;
+    border-top: 1px solid #ccc; /* Separator */
+    width: 100%;
+    box-sizing: border-box;
+}
+.light-theme footer {
+    border-top: 1px solid #ddd;
+    background-color: #f8f9fa; /* Slight background for footer */
+    color: #6c757d;
+}
+.dark-theme footer {
+    border-top: 1px solid #333;
+    background-color: #1c1c1c; /* Slight background for footer */
+    color: #aaa;
+}
+
+
+/* Utility */
+.hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* Responsive adjustments for Navbar */
+@media screen and (max-width: 768px) {
+    .navbar-menu {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .navbar-start, .navbar-end {
+        flex-direction: column;
+        width: 100%;
+        align-items: stretch; /* Make items take full width */
+    }
+    .navbar-item {
+        padding: 0.75rem 1rem; /* More touch-friendly padding */
+        text-align: left;
+    }
+    .navbar-end .navbar-item { /* Group buttons together better */
+        display: flex;
+        flex-direction: column;
+        align-items: stretch; /* Ensure buttons in navbar-end also stretch */
+    }
+    .navbar-end .buttons {
+        display: flex;
+        flex-direction: column; /* Stack buttons vertically */
+        width: 100%;
+    }
+    .navbar-end .buttons .button {
+        width: 100%;
+        margin-left: 0;
+        margin-bottom: 5px; /* Space between stacked buttons */
+    }
+    .theme-toggle-label, .navbar-end .navbar-item > span {
+        padding: 0.5rem 0; /* Adjust padding */
+    }
+}
+

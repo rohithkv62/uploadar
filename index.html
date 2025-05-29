@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Media Platform</title>
+    <link rel="stylesheet" href="index.css">
+    <script>
+      // This shim is to ensure process.env.API_KEY is available for the Gemini SDK in a browser ES module context
+      // if no build tool (like Webpack/Vite) is injecting environment variables.
+      // IMPORTANT: In a real production application, API keys should be handled securely,
+      // typically by a backend proxy or injected securely during the build process.
+      // Do NOT hardcode API keys directly in client-side code that's publicly accessible.
+      // The prompt states to assume process.env.API_KEY is pre-configured and accessible.
+      if (typeof window.process === 'undefined') {
+        window.process = { env: {} };
+      } else if (typeof window.process.env === 'undefined') {
+        window.process.env = {};
+      }
+      // You would typically set this environment variable through your deployment platform or a .env file with a build tool.
+      // For this exercise, if it's not set, the Gemini SDK might fail to initialize.
+      // Example: window.process.env.API_KEY = window.process.env.API_KEY || "YOUR_FALLBACK_API_KEY_IF_ANY"; // Not recommended for actual keys
+    </script>
+<script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@^19.1.0",
+    "react-dom/": "https://esm.sh/react-dom@^19.1.0/",
+    "@google/genai": "https://esm.sh/@google/genai@^1.2.0",
+    "react/": "https://esm.sh/react@^19.1.0/"
+  }
+}
+</script>
+</head>
+<body>
+    <div id="root"></div>
+    <script type="module" src="index.tsx"></script>
+</body>
+</html><link rel="stylesheet" href="index.css">
+<script src="index.tsx" type="module"></script>
